@@ -177,3 +177,7 @@ h1{font-size:clamp(3.2rem,9vw,6.4rem);line-height:.95}
 
 /* img-placeholder */
 img:not([src$=".svg"]){background-color:var(--plaster-2)}
+
+/* Carrito vacío decidido antes de pintar (cart-state.js) */
+.cart-empty #cart-body{display:none}
+.cart-empty #empty{display:block}

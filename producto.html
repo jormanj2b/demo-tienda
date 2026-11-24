@@ -18,7 +18,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body data-reveal=".section-head, .steps li, .cols > div, .taller h2" data-page="product">
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -44,7 +44,7 @@
       <label for="p-var">Esmalte</label>
       <select id="p-var"></select>
       <label for="p-qty">Cantidad</label>
-      <input id="p-qty" type="number" min="1" value="1" inputmode="numeric">
+      <input id="p-qty" type="number" min="1" max="49" step="1" value="1" inputmode="numeric" pattern="[0-9]*">
       <button class="btn" type="submit">Añadir al carrito</button>
     </form>
     <p class="muted">Cada pieza es distinta. La de la foto es de esta tanda, la tuya tendrá su propia variación.</p>
@@ -61,7 +61,7 @@
 </footer>
 <p class="toast" id="toast" role="status" hidden></p>
 <script src="products.js" defer></script>
-<script src="app.js" defer></script>
+<script src="app.js?v=2" defer></script>
 <script src="reveal.js" defer></script>
 </body>
 </html>
