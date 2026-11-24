@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pieza · Barro Lento</title>
+<meta name="description" content="Cerámica hecha a mano en Miami. Tienda de demostración.">
+<link rel="canonical" href="https://jormanj2b.github.io/demo-tienda/producto.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#F3EEE6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pieza · Barro Lento">
+<meta property="og:description" content="Cerámica hecha a mano en Miami. Tienda de demostración.">
+<meta property="og:url" content="https://jormanj2b.github.io/demo-tienda/producto.html">
+<meta property="og:image" content="https://jormanj2b.github.io/demo-tienda/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="product">
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="demo-bar"><strong>Tienda de demostración:</strong> no se cobra ni se envía nada. Hecha por <a href="https://jormanj2b.github.io/">Jorman Bravo · Desarrollo web</a></div>
+<header class="top">
+  <a class="logo" href="./">Barro Lento</a>
+  <nav aria-label="Principal"><a href="./#tienda">Tienda</a><a href="./#taller">El taller</a><a href="./#envios">Envíos</a></nav>
+  <a class="cart-link" href="carrito.html" aria-label="Ver carrito">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+    <span>Carrito</span><span class="badge" id="cart-count" hidden>0</span>
+  </a>
+</header>
+<main id="main">
+<section class="product">
+  <img id="p-img" class="p-img" src="img/taza-800.webp" width="800" height="800" alt="">
+  <div class="p-info">
+    <nav class="crumbs" aria-label="Ruta"><a href="./">Inicio</a> / <a href="./#tienda">Tienda</a> / <span id="p-cat"></span></nav>
+    <h1 id="p-name">Pieza</h1>
+    <p class="p-price" id="p-price"></p>
+    <p id="p-desc"></p>
+    <dl class="specs"><dt>Medidas</dt><dd id="p-size"></dd><dt>Cuidado</dt><dd>Lavavajillas y microondas. No horno directo.</dd><dt>Disponibilidad</dt><dd id="p-stock"></dd></dl>
+    <form id="p-form" class="buy">
+      <label for="p-var">Esmalte</label>
+      <select id="p-var"></select>
+      <label for="p-qty">Cantidad</label>
+      <input id="p-qty" type="number" min="1" value="1" inputmode="numeric">
+      <button class="btn" type="submit">Añadir al carrito</button>
+    </form>
+    <p class="muted">Cada pieza es distinta. La de la foto es de esta tanda, la tuya tendrá su propia variación.</p>
+  </div>
+</section>
+<section class="section"><div class="section-head"><h2>También de esta tanda</h2></div><ul class="grid grid-3" id="more"></ul></section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <p><span class="logo">Barro Lento</span><br>Cerámica hecha a mano en Miami. Negocio ficticio creado para un portafolio.</p>
+    <p><a href="privacidad.html">Privacidad</a><br><a href="./#envios">Envíos y devoluciones</a></p>
+    <p>Tienda diseñada y programada por <a href="https://jormanj2b.github.io/">Jorman Bravo · Desarrollo web</a></p>
+  </div>
+</footer>
+<p class="toast" id="toast" role="status" hidden></p>
+<script src="products.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
