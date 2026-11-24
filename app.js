@@ -3,6 +3,63 @@
 (function () {
   var P = window.PRODUCTS, KEY = 'barro-lento-cart';
   function $(id) { return document.getElementById(id); }
+  // Validación de campos: ayuda a quien escribe y evita datos raros. La protección de verdad es que
+  // todo lo que escribe el usuario se muestra con textContent, nunca como HTML.
+  var NAME_RE = /^\p{L}(?:[\p{L}\p{M}]|['’ -](?=\p{L}))*$/u;
+  function clean(v) { return String(v || '').normalize('NFC').replace(/[\u0000-\u001F\u007F-\u009F\u200B-\u200F\u2028\u2029\uFEFF]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function cleanLong(v) { return String(v || '').normalize('NFC').replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F\u200B-\u200F\u2028\u2029\uFEFF]/g, '').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim(); }
+  function nameMsg(v, min, max, empty) {
+    if (!v) return empty;
+    if (/[^\p{L}\p{M}\d '’-]/u.test(v)) return 'Usa solo letras, espacios, apóstrofes y guiones (sin símbolos como < > / ; =).';
+    if (/\d/.test(v)) return 'El nombre no puede llevar números.';
+    if (!NAME_RE.test(v)) return 'Usa solo letras, espacios, apóstrofes y guiones.';
+    if (v.length < min) return 'Escribe al menos ' + min + ' letras.';
+    if (v.length > max) return 'Máximo ' + max + ' caracteres.';
+    return '';
+  }
+  function phoneMsg(v, min, short) {
+    if (/(?!^\+)\D/.test(v)) return 'El teléfono solo lleva números (y + al inicio para el código de país).';
+    var d = v.replace(/\D/g, '');
+    if (d.length < min) return short;
+    if (d.length > 15) return 'Sobran dígitos: revisa el número.';
+    return '';
+  }
+  function textMsg(v, max) {
+    if (/[<>]/.test(v)) return 'Sin los signos < y >, por favor.';
+    if (max && v.length > max) return 'Máximo ' + max + ' caracteres.';
+    return '';
+  }
+  function isCharMsg(m) { return /números|Usa solo|solo lleva|solo acepta|signos/.test(m); }
+  // Valida al escribir solo si hay un carácter no permitido (o si el campo ya estaba marcado), y siempre al salir del campo
+  function live(input, rule, show) {
+    input.addEventListener('input', function () { var m = rule(input.value); if (input.getAttribute('aria-invalid') === 'true' || isCharMsg(m)) show(m); });
+    input.addEventListener('blur', function () { if (input.value) show(rule(input.value)); });
+  }
+  // Filtro al escribir o pegar: quita lo que no corresponde al tipo de campo y lo avisa.
+  var FILTERS = {
+    name: [/[^\p{L}\p{M} '’-]/gu, 'Este campo solo acepta letras, espacios, apóstrofes y guiones.'],
+    digits: [/\D/g, 'Este campo solo acepta números.'],
+    phone: [/(?!^\+)\D/g, 'El teléfono solo acepta números (y + al inicio para el código de país).'],
+    user: [/[^A-Za-z0-9._-]/g, 'El usuario solo lleva letras sin acentos, números, puntos y guiones.'],
+    text: [/[<>]/g, 'Los signos < y > no están permitidos.']
+  };
+  function filter(input, kind, show) {
+    input.addEventListener('input', function () {
+      var k = typeof kind === 'function' ? kind() : kind, f = FILTERS[k];
+      if (!f) return;
+      var v = input.value, c = v.replace(f[0], '');
+      if (c === v) return;
+      var pos = Math.max(0, (input.selectionStart || c.length) - (v.length - c.length));
+      input.value = c;
+      try { input.setSelectionRange(pos, pos); } catch (e) {}
+      if (show) show(f[1]);
+    });
+  }
+  // Campos type=number: bloquea e, E, +, -, punto y coma (el navegador sí los deja escribir)
+  function digitsOnlyNumber(input) {
+    input.addEventListener('keydown', function (e) { if (['e', 'E', '+', '-', '.', ','].indexOf(e.key) > -1) e.preventDefault(); });
+    input.addEventListener('paste', function (e) { var t = (e.clipboardData || window.clipboardData).getData('text'); if (/\D/.test(t)) e.preventDefault(); });
+  }
   function el(tag, attrs, kids) {
     var n = document.createElement(tag);
     if (attrs) Object.keys(attrs).forEach(function (k) {
@@ -14,7 +71,7 @@
   function usd(v) { return '$' + v.toFixed(2).replace(/\.00$/, ''); }
   function find(id) { return P.filter(function (p) { return p.id === id; })[0]; }
   function load() {
-    try { var c = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(c) ? c.filter(function (l) { return find(l.id) && l.q > 0 && l.q < 50; }) : []; }
+    try { var c = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(c) ? c.filter(function (l) { var p = l && find(l.id); return p && p.v.indexOf(l.v) > -1 && Number.isInteger(l.q) && l.q > 0 && l.q < 50; }) : []; }
     catch (e) { return []; }
   }
   function save(c) { localStorage.setItem(KEY, JSON.stringify(c)); badge(); }
@@ -59,7 +116,7 @@
     $('p-desc').textContent = p.t; $('p-size').textContent = p.size;
     $('p-stock').textContent = p.stock <= 4 ? 'Quedan ' + p.stock + ' de esta tanda' : 'En stock, sale en 2 días hábiles';
     var sel = $('p-var'); p.v.forEach(function (v) { sel.appendChild(el('option', { value: v, text: v })); });
-    var qty = $('p-qty'); qty.max = String(p.stock);
+    var qty = $('p-qty'); qty.max = String(p.stock); digitsOnlyNumber(qty);
     $('p-form').addEventListener('submit', function (e) {
       e.preventDefault();
       var q = Math.max(1, Math.min(p.stock, parseInt(qty.value, 10) || 1));
@@ -81,6 +138,7 @@
     function render() {
       var t = totals(); linesEl.textContent = '';
       $('empty').hidden = !!t.c.length; $('cart-body').hidden = !t.c.length;
+      document.documentElement.classList.toggle('cart-empty', !t.c.length);
       t.c.forEach(function (l, idx) {
         var p = find(l.id);
         var q = el('input', { type: 'number', min: '1', max: String(p.stock), value: String(l.q), 'aria-label': 'Cantidad de ' + p.n, inputmode: 'numeric' });
@@ -100,19 +158,16 @@
     }
     render();
     var rules = {
-      email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'Escribe un correo válido, por ejemplo nombre@correo.com.'; },
-      nombre: function (v) { return v.length >= 3 ? '' : 'Escribe tu nombre y apellido.'; },
-      direccion: function (v) { return v.length >= 6 ? '' : 'Falta la dirección de entrega.'; },
-      ciudad: function (v) { return v.length >= 2 ? '' : 'Falta la ciudad.'; },
-      zip: function (v) { return /^\d{5}$/.test(v) ? '' : 'El ZIP tiene 5 números.'; }
+      email: function (v) { v = clean(v); return v.length <= 80 && /^[^\s@<>()"',;:]+@[^\s@<>()"',;:]+\.[^\s@<>()"',;:]{2,}$/.test(v) ? '' : 'Escribe un correo válido, por ejemplo nombre@correo.com.'; },
+      nombre: function (v) { v = clean(v); return nameMsg(v, 3, 80, 'Escribe tu nombre y apellido.') || (v.indexOf(' ') < 0 ? 'Escribe también tu apellido.' : ''); },
+      direccion: function (v) { v = clean(v); return textMsg(v, 120) || (v.length >= 6 ? '' : 'Falta la dirección de entrega.'); },
+      ciudad: function (v) { v = clean(v); return /\d/.test(v) ? 'La ciudad no lleva números.' : textMsg(v, 60) || (v.length >= 2 ? '' : 'Falta la ciudad.'); },
+      zip: function (v) { v = clean(v); return /\D/.test(v) ? 'El ZIP solo lleva números.' : /^\d{5}$/.test(v) ? '' : 'El ZIP tiene 5 números.'; }
     };
-    Object.keys(rules).forEach(function (k) {
-      $(k).addEventListener('blur', function () { check(k); });
-    });
-    function check(k) {
-      var msg = rules[k]($(k).value.trim()), e = $('err-' + k);
-      e.textContent = msg; e.hidden = !msg; $(k).setAttribute('aria-invalid', String(!!msg)); return !msg;
-    }
+    function show(k, msg) { var e = $('err-' + k); e.textContent = msg; e.hidden = !msg; $(k).setAttribute('aria-invalid', String(!!msg)); return !msg; }
+    function check(k) { $(k).value = clean($(k).value); return show(k, rules[k]($(k).value)); }
+    var KIND = { email: 'text', nombre: 'name', direccion: 'text', ciudad: 'name', zip: 'digits' };
+    Object.keys(rules).forEach(function (k) { live($(k), rules[k], function (m) { show(k, m); }); filter($(k), KIND[k], function (m) { show(k, m); }); });
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var bad = Object.keys(rules).filter(function (k) { return !check(k); });
@@ -121,7 +176,7 @@
       var order = 'BL-' + String(Date.now()).slice(-6);
       $('done-num').textContent = order;
       $('done-total').textContent = usd(t.total);
-      $('done-mail').textContent = $('email').value.trim();
+      $('done-mail').textContent = clean($('email').value);
       save([]); $('cart-body').hidden = true; $('done').hidden = false; $('done').focus();
     });
   }
