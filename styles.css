@@ -109,3 +109,6 @@ input[aria-invalid="true"]{border-color:#A3321F}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (max-width:899px){.grid-3 li:nth-child(3){display:none}}
 [tabindex="-1"]:focus{outline:none}
+
+/* img-placeholder */
+img:not([src$=".svg"]){background-color:var(--plaster-2)}

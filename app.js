@@ -53,7 +53,7 @@
     document.title = p.n + ' · Barro Lento, cerámica hecha a mano';
     var meta = document.querySelector('meta[name="description"]'); if (meta) meta.setAttribute('content', p.n + ': ' + p.t.split('.')[0] + '. ' + usd(p.p) + '.');
     var img = $('p-img');
-    img.src = 'img/' + p.img + '-800.webp'; img.alt = p.n + ' sobre fondo de yeso claro';
+    img.sizes = '(min-width: 900px) 50vw, 100vw'; img.srcset = 'img/' + p.img + '-400.webp 400w, img/' + p.img + '-800.webp 800w'; img.src = 'img/' + p.img + '-800.webp'; img.alt = p.n + ' sobre fondo de yeso claro';
     $('p-cat').textContent = p.cat; $('p-name').textContent = p.n; $('p-price').textContent = usd(p.p);
     $('p-desc').textContent = p.t; $('p-size').textContent = p.size;
     $('p-stock').textContent = p.stock <= 4 ? 'Quedan ' + p.stock + ' de esta tanda' : 'En stock, sale en 2 días hábiles';
