@@ -35,7 +35,8 @@
       el('a', { href: 'producto.html?p=' + p.id }, [
         el('img', { src: 'img/' + p.img + '-400.webp', srcset: 'img/' + p.img + '-400.webp 400w, img/' + p.img + '-800.webp 800w', sizes: '(min-width: 900px) 30vw, 50vw', width: '800', height: '800', alt: p.n + ', ' + p.t.split('.')[0].toLowerCase(), loading: 'lazy' }),
         el('span', { class: 'card-name', text: p.n }),
-        el('span', { class: 'card-price', text: usd(p.p) })
+        el('span', { class: 'card-price', text: usd(p.p) }),
+        el('span', { class: 'card-stock' + (p.stock <= 5 ? ' low' : ''), text: p.stock <= 5 ? 'Quedan ' + p.stock : 'En stock' })
       ])
     ]);
   }

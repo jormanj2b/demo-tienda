@@ -1,3 +1,4 @@
+/* Barro Lento — catálogo de taller: yeso, barro cocido y salvia */
 :root{--plaster:#F3EEE6;--plaster-2:#EAE2D5;--ink:#1E1B18;--muted:#5E554C;--clay:#9C4A2F;--clay-dark:#7C3922;--sage:#5E6E58;--line:#D8CEBF;--white:#FFFDF9;
 --serif:'Instrument Serif',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--r:2px}
 *{box-sizing:border-box}
@@ -109,6 +110,70 @@ input[aria-invalid="true"]{border-color:#A3321F}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (max-width:899px){.grid-3 li:nth-child(3){display:none}}
 [tabindex="-1"]:focus{outline:none}
+
+/* ===== Rediseño ===== */
+[hidden]{display:none!important}
+:root{--ease:cubic-bezier(.2,.7,.2,1)}
+body{-webkit-font-smoothing:antialiased}
+.top{position:sticky;top:0;z-index:40;max-width:none;padding:.9rem max(24px,calc((100vw - 1280px)/2 + 24px));background:rgba(243,238,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-style:italic;font-size:2rem}
+.top nav a{position:relative}
+.top nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--clay);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.top nav a:hover::after{transform:scaleX(1)}
+.cart-link{border:1px solid var(--ink);border-radius:999px;padding:0 1rem;transition:background .2s,color .2s}
+.cart-link:hover{background:var(--ink);color:var(--plaster)}
+.badge{transition:transform .3s var(--ease)}
+.kicker{margin:0 0 1.2rem;display:flex;align-items:center;gap:.6rem}
+.kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--clay)}
+h1{font-size:clamp(3.2rem,9vw,6.4rem);line-height:.95}
+.hero{background:var(--plaster-2)}
+.hero img{border-radius:0 0 0 0}
+@media (min-width:900px){.hero{min-height:calc(100svh - 120px)}.hero img{border-radius:0 0 0 220px}}
+@media (max-width:899px){.hero img{aspect-ratio:5/4;border-radius:0 0 0 120px}}
+.hero-text p{font-size:1.15rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;margin-top:1.8rem}
+.kiln{display:grid;font-size:.85rem;color:var(--muted);border-left:1px solid var(--line);padding-left:1.2rem;line-height:1.3}
+.kiln b{font:400 1.6rem var(--serif);color:var(--clay-dark)}
+.btn{border-radius:999px;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(30,27,24,.7)}
+.btn:active{transform:none}
+.section-head{border-bottom:0;position:relative;padding-bottom:1rem}
+.section-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.grid{counter-reset:n}
+.card{counter-increment:n}
+.card a{position:relative;grid-template-columns:1fr auto}
+.card a::before{content:"N.º " counter(n,decimal-leading-zero);position:absolute;top:.7rem;left:.7rem;z-index:1;font-size:.72rem;font-weight:600;letter-spacing:.1em;background:var(--white);padding:.2rem .5rem;border-radius:999px}
+.card img{border-radius:180px 180px 4px 4px;transition:transform .6s var(--ease),border-radius .6s var(--ease)}
+.card a:hover img{transform:none;border-radius:4px}
+.card-name{transition:color .2s}
+.card a:hover .card-name{color:var(--clay-dark)}
+.card-stock{grid-column:1/-1;font-size:.82rem;color:var(--sage);font-weight:600}
+.card-stock::before{content:"● ";font-size:.7em;vertical-align:.15em}
+.card-stock.low{color:var(--clay-dark)}
+.taller{position:relative;overflow:hidden}
+.taller::after{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;border:1px solid #4A443E;box-shadow:0 0 0 40px rgba(255,255,255,.015),0 0 0 80px rgba(255,255,255,.01)}
+.taller h2{font-style:italic}
+.steps li{transition:padding .3s var(--ease)}
+.steps li:hover{padding-left:.6rem}
+.envios .cols>div{border-top:1px solid var(--ink);padding-top:1.2rem}
+.envios h3{font-style:italic}
+.p-img{border-radius:240px 240px 4px 4px}
+.crumbs a{text-decoration:none;border-bottom:1px solid var(--line)}
+.crumbs a:hover{border-color:var(--clay)}
+.p-price{font:400 2rem var(--serif);color:var(--clay-dark)}
+.specs{border-top:1px solid var(--ink)}
+.toast{border-radius:999px;padding:.9rem 1.4rem;animation:pop .35s var(--ease)}
+@keyframes pop{from{transform:translate(-50%,16px);opacity:0}}
+.totals{border-radius:6px;border-top:4px solid var(--clay)}
+.done{border-radius:6px;border-top:4px solid var(--sage)}
+.lines{border-top:0;position:relative}
+.foot{background:var(--ink);color:#CFC6BA;border:0}
+.foot .logo{color:var(--plaster)}
+.foot-grid{color:#CFC6BA}
+.foot a{color:#fff}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* img-placeholder */
 img:not([src$=".svg"]){background-color:var(--plaster-2)}
