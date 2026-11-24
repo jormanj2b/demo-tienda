@@ -181,3 +181,25 @@ img:not([src$=".svg"]){background-color:var(--plaster-2)}
 /* Carrito vacío decidido antes de pintar (cart-state.js) */
 .cart-empty #cart-body{display:none}
 .cart-empty #empty[hidden],.cart-empty #empty{display:block!important}
+/* ronda 2: aviso de cookies alineado con la columna del pie */
+.foot>.ck-foot{max-width:1280px;margin:-1.4rem auto 0;padding:0 24px 1.6rem;color:#CFC6BA}
+/* ronda 2: áreas táctiles de 44 px en menú y migas */
+.top nav a:not(.cart-link){padding-block:.75rem}
+.top nav a:not(.cart-link)::after{bottom:.5rem}
+.crumbs a{display:inline-block;padding-block:.7rem;border-bottom:0;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.crumbs a:hover{text-decoration-color:var(--clay)}
+.crumbs{margin-top:-.7rem;margin-bottom:.3rem}
+.skip{display:inline-flex;align-items:center;min-height:44px}
+/* ronda 2: carrito vacío con piezas sugeridas */
+.empty-lead{font-size:1.1rem;margin:0 0 1.2rem}
+.empty-picks{list-style:none;padding:0;margin:0 0 1.6rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;max-width:760px}
+.empty-picks a{display:grid;gap:.2rem;text-decoration:none;color:inherit}
+.empty-picks img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:180px 180px 4px 4px;background:var(--plaster-2);margin-bottom:.4rem;transition:transform .3s var(--ease)}
+.empty-picks a:hover img{transform:translateY(-2px)}
+.empty-picks span:first-of-type{font-weight:600}
+@media (max-width:520px){.empty-picks{grid-template-columns:repeat(2,minmax(0,1fr))}.empty-picks li:nth-child(3){display:none}}
+/* ronda 2: la columna izquierda de "El taller" deja de quedar vacía */
+.taller-intro p{color:#CFC6BA;max-width:34ch;margin:1rem 0 1.4rem;font-size:1.05rem}
+.taller-link{display:inline-flex;align-items:center;min-height:44px;padding:0 1.2rem;border:1px solid var(--plaster);border-radius:999px;color:var(--plaster);text-decoration:none;transition:background .2s,color .2s}
+.taller-link:hover{background:var(--plaster);color:var(--ink)}
+@media (min-width:900px){.taller-intro{position:sticky;top:6rem;align-self:start}}
