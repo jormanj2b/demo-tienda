@@ -108,3 +108,4 @@ input[aria-invalid="true"]{border-color:#A3321F}
 .legal{max-width:760px;margin:0 auto;padding:2rem 24px 5rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (max-width:899px){.grid-3 li:nth-child(3){display:none}}
+[tabindex="-1"]:focus{outline:none}
