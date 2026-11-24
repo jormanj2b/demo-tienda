@@ -180,4 +180,4 @@ img:not([src$=".svg"]){background-color:var(--plaster-2)}
 
 /* Carrito vacío decidido antes de pintar (cart-state.js) */
 .cart-empty #cart-body{display:none}
-.cart-empty #empty{display:block}
+.cart-empty #empty[hidden],.cart-empty #empty{display:block!important}
