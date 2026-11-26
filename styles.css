@@ -203,3 +203,10 @@ img:not([src$=".svg"]){background-color:var(--plaster-2)}
 .taller-link{display:inline-flex;align-items:center;min-height:44px;padding:0 1.2rem;border:1px solid var(--plaster);border-radius:999px;color:var(--plaster);text-decoration:none;transition:background .2s,color .2s}
 .taller-link:hover{background:var(--plaster);color:var(--ink)}
 @media (min-width:900px){.taller-intro{position:sticky;top:6rem;align-self:start}}
+
+/* ES/EN */
+.lang-switch{display:inline-block;margin-left:.6rem;padding:.15rem .7rem;border:1px solid currentColor;border-radius:999px;font-weight:600;text-decoration:none;line-height:1.5}
+.lang-switch:hover{text-decoration:underline}
+html[lang="en"] .card a::before{content:"No. " counter(n,decimal-leading-zero)}
+html[lang="en"] .f-row{grid-template-columns:1.6fr 1fr 1fr}
+@media (max-width:480px){html[lang="en"] .f-row{grid-template-columns:1fr 1fr}html[lang="en"] .f-row .f:first-child{grid-column:1/-1}}

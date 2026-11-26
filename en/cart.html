@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cart · Slow Clay</title>
+<meta name="description" content="Your Slow Clay cart. Demo store: nothing is charged.">
+<link rel="canonical" href="https://jormanj2b.github.io/demo-tienda/en/cart.html">
+<link rel="alternate" hreflang="en" href="https://jormanj2b.github.io/demo-tienda/en/cart.html">
+<link rel="alternate" hreflang="es" href="https://jormanj2b.github.io/demo-tienda/carrito.html">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://jormanj2b.goatcounter.com; style-src 'self'; script-src 'self' https://gc.zgo.at; font-src 'self'; connect-src 'self' https://jormanj2b.goatcounter.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#F3EEE6">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Cart · Slow Clay">
+<meta property="og:description" content="Your Slow Clay cart. Demo store: nothing is charged.">
+<meta property="og:url" content="https://jormanj2b.github.io/demo-tienda/en/cart.html">
+<meta property="og:image" content="https://jormanj2b.github.io/demo-tienda/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="../styles.css?v=4">
+<script src="cart-state.js"></script>
+<script src="cookies.js?v=1" defer data-key="demo-tienda" data-owner="Slow Clay" data-accent="#5E6E58"></script>
+</head>
+<body data-reveal=".section-head, .steps li, .cols > div, .taller h2" data-page="cart">
+<a class="skip" href="#main">Skip to content</a>
+<div class="demo-bar"><strong>Demo store:</strong> nothing is charged or shipped. Built by <a href="https://jormanj2b.github.io/">Jorman Bravo · Web design</a> <a class="lang-switch" href="../carrito.html" hreflang="es" lang="es">Español</a></div>
+<header class="top">
+  <a class="logo" href="./">Slow Clay</a>
+  <nav aria-label="Main"><a href="./#tienda">Shop</a><a href="./#taller">The studio</a><a href="./#envios">Shipping</a></nav>
+  <a class="cart-link" href="cart.html" aria-label="View cart">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+    <span>Cart</span><span class="badge" id="cart-count" hidden>0</span>
+  </a>
+</header>
+<main id="main">
+<section class="section cart">
+  <h1>Your cart</h1>
+  <div id="empty" class="empty" hidden><p class="empty-lead">Your cart is empty. Three pieces to start with:</p><ul class="empty-picks"><li><a href="product.html?p=taza-avena"><img src="../img/taza-400.webp" alt="" width="400" height="400" loading="lazy" decoding="async"><span>Oat Mug</span><span class="muted">$34</span></a></li><li><a href="product.html?p=bowl-noche"><img src="../img/bowl-400.webp" alt="" width="400" height="400" loading="lazy" decoding="async"><span>Night Bowl</span><span class="muted">$58</span></a></li><li><a href="product.html?p=florero-semilla"><img src="../img/jarron-400.webp" alt="" width="400" height="400" loading="lazy" decoding="async"><span>Seed Bud Vase</span><span class="muted">$38</span></a></li></ul><a class="btn" href="./#tienda">Browse the shop</a></div>
+  <div id="cart-body" class="cart-grid">
+    <div>
+      <ul class="lines" id="lines"></ul>
+      <form id="checkout" class="checkout" novalidate>
+        <h2>Shipping details</h2>
+        <div class="f"><label for="email">Email</label><input id="email" type="email" autocomplete="email" maxlength="80" aria-describedby="err-email"><p class="error" id="err-email" aria-live="polite" hidden></p></div>
+        <div class="f"><label for="nombre">Full name</label><input id="nombre" autocomplete="name" minlength="3" maxlength="80" pattern="\p{L}(?:[\p{L}\p{M}]|[' ’\-](?=\p{L}))*" spellcheck="false" aria-describedby="err-nombre"><p class="error" id="err-nombre" aria-live="polite" hidden></p></div>
+        <div class="f"><label for="direccion">Street address</label><input id="direccion" autocomplete="street-address" maxlength="120"><p class="error" id="err-direccion" aria-live="polite" hidden></p></div>
+        <div class="f-row">
+          <div class="f"><label for="ciudad">City</label><input id="ciudad" autocomplete="address-level2" maxlength="60" pattern="\p{L}(?:[\p{L}\p{M}]|[' ’\-](?=\p{L}))*"><p class="error" id="err-ciudad" aria-live="polite" hidden></p></div>
+          <div class="f"><label for="state">State</label><select id="state" autocomplete="address-level1" aria-describedby="err-state"><option value="">State</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select><p class="error" id="err-state" aria-live="polite" hidden></p></div>
+          <div class="f"><label for="zip">ZIP code</label><input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" aria-describedby="err-zip"><p class="error" id="err-zip" aria-live="polite" hidden></p></div>
+        </div>
+        <fieldset class="pay">
+          <legend>Payment</legend>
+          <p class="demo-note">Demo: the payment form (Stripe, PayPal or whatever the business uses) would go here. This test doesn’t ask for or store any card details.</p>
+          <label><input type="radio" name="pago" checked> Card (secure checkout)</label>
+          <label><input type="radio" name="pago"> PayPal</label>
+        </fieldset>
+        <button class="btn btn-block" type="submit">Place test order</button>
+      </form>
+    </div>
+    <aside class="totals" aria-label="Order summary">
+      <dl><dt>Subtotal</dt><dd id="t-sub"></dd><dt>Shipping</dt><dd id="t-ship"></dd><dt class="t">Total</dt><dd class="t" id="t-total"></dd></dl>
+      <p class="muted" id="ship-note"></p>
+    </aside>
+  </div>
+  <div id="done" class="done" hidden tabindex="-1">
+    <p class="kicker">Test order received</p>
+    <h2>Thank you. Your order number is <span id="done-num"></span></h2>
+    <p>Total: <strong id="done-total"></strong>. In the real store, you’d get an email at <strong id="done-mail"></strong> with your UPS tracking number.</p>
+    <p class="muted">Nothing was charged. This is a demo.</p>
+    <a class="btn" href="./">Back to the shop</a>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <p><span class="logo">Slow Clay</span><br>Handmade ceramics from Miami. A fictional business made for a portfolio.</p>
+    <p><a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a><br><a href="./#envios">Shipping and returns</a></p>
+    <p>Store designed and built by <a href="https://jormanj2b.github.io/">Jorman Bravo · Web design</a></p>
+  </div>
+</footer>
+<p class="toast" id="toast" role="status" hidden></p>
+<script src="products.js" defer></script>
+<script src="app.js?v=2" defer></script>
+<script src="../reveal.js" defer></script>
+<script data-goatcounter="https://jormanj2b.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

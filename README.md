@@ -19,3 +19,9 @@ Barro Lento es un negocio **ficticio**. Este repositorio es una pieza de portafo
 GitHub Pages desde la rama `main`. Para un cliente real se conecta su dominio, se cambian los datos de ejemplo y se añade el número de WhatsApp o el servicio de formularios que use el negocio.
 
 © 2026 Jorman Bravo. Código de muestra para portafolio.
+
+## English version
+
+`en/` is a native English version for US clients (Slow Clay, Little Havana, Miami): English product names and glazes, sizes in inches and ounces, kiln temperatures in °F, US checkout with a state picker and 5-digit ZIP, English validation messages, cookie notice and legal pages. It has its own cart (`slow-clay-cart`) and reuses the root CSS, fonts and photos. Every page has an ES/EN switch in the top bar.
+
+**Live:** https://jormanj2b.github.io/demo-tienda/en/
