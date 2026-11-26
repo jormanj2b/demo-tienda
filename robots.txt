@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jormanj2b.github.io/demo-tienda/sitemap.xml
+Sitemap: https://jormanbravo.com/demo-tienda/sitemap.xml

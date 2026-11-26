@@ -123,7 +123,7 @@
       add(p.id, sel.value, q); toast('Added: ' + q + ' × ' + p.n + ' (' + sel.value + ')');
     });
     var more = $('more'); P.filter(function (x) { return x.id !== p.id; }).slice(0, 3).forEach(function (x) { more.appendChild(card(x)); });
-    var ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.n, description: p.t, image: 'https://jormanj2b.github.io/demo-tienda/img/' + p.img + '-800.webp',
+    var ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.n, description: p.t, image: 'https://jormanbravo.com/demo-tienda/img/' + p.img + '-800.webp',
       brand: { '@type': 'Brand', name: 'Slow Clay' }, offers: { '@type': 'Offer', price: String(p.p), priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: location.href } };
     var s = el('script', { type: 'application/ld+json' }); s.textContent = JSON.stringify(ld); document.head.appendChild(s);
   }
