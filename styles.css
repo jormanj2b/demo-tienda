@@ -210,3 +210,13 @@ img:not([src$=".svg"]){background-color:var(--plaster-2)}
 html[lang="en"] .card a::before{content:"No. " counter(n,decimal-leading-zero)}
 html[lang="en"] .f-row{grid-template-columns:1.6fr 1fr 1fr}
 @media (max-width:480px){html[lang="en"] .f-row{grid-template-columns:1fr 1fr}html[lang="en"] .f-row .f:first-child{grid-column:1/-1}}
+
+/* Responsive catalog: prevent intrinsic text widths from expanding mobile grid tracks. */
+@media (max-width:599px){
+  .grid,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card,.card a,.card-name{min-width:0}
+  .card a{grid-template-columns:minmax(0,1fr) auto}
+  .card-name,.card-stock{overflow-wrap:anywhere}
+  .hero-text,.section-head>*{min-width:0;max-width:100%}
+  .hero-cta .btn{max-width:100%;text-align:center;white-space:normal}
+}
